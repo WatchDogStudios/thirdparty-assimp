@@ -1,13 +1,13 @@
-ez_cmake_init()
+ns_cmake_init()
 
-ez_requires_assimp()
+ns_requires_assimp()
 
 # Get the name of this folder as the project name
 get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
 file(GLOB_RECURSE SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/*.cc" "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/*.c" "${CMAKE_CURRENT_SOURCE_DIR}/*.inl" "${CMAKE_CURRENT_SOURCE_DIR}/*.txt" "${CMAKE_CURRENT_SOURCE_DIR}/*.cmake")
 
-if (EZ_3RDPARTY_ASSIMP_DRACO_SUPPORT)
+if (NS_3RDPARTY_ASSIMP_DRACO_SUPPORT)
   target_compile_definitions(${PROJECT_NAME} PRIVATE ASSIMP_ENABLE_DRACO)
 else()
   foreach(str ${SRC_FILES})
@@ -17,7 +17,7 @@ else()
   endforeach()
 endif()
 
-ez_create_target(SHARED_LIBRARY ${PROJECT_NAME} NO_EZ_PREFIX NO_UNITY NO_WARNINGS_AS_ERRORS ENABLE_RTTI NO_DEBUG MANUAL_SOURCE_FILES "${SRC_FILES}")
+ns_create_target(SHARED_LIBRARY ${PROJECT_NAME} NO_NS_PREFIX NO_UNITY NO_WARNINGS_AS_ERRORS ENABLE_RTTI NO_DEBUG MANUAL_SOURCE_FILES "${SRC_FILES}")
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC BUILDSYSTEM_ENABLE_AI_SUPPORT)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ASSIMP_DLL)
@@ -89,9 +89,9 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
   ASSIMP_BUILD_NO_STEP_IMPORTER
 )
 
-function(ez_link_target_assimp TARGET_NAME)
+function(ns_link_target_assimp TARGET_NAME)
 
-	ez_requires_assimp()
+	ns_requires_assimp()
 
 	target_link_libraries(${TARGET_NAME} PRIVATE assimp)
 
